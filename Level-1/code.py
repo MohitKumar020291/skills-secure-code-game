@@ -18,7 +18,7 @@ Item = namedtuple('Item', 'type, description, amount, quantity')
 
 def validorder(order: Order):
     net = 0
-    value = str("e")
+    value = "e"
     for item in order.items:
         number_of_amount_zero = ""
         item_amount_list = []
