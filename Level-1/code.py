@@ -18,12 +18,33 @@ Item = namedtuple('Item', 'type, description, amount, quantity')
 
 def validorder(order: Order):
     net = 0
-    
+    value = str("e")
     for item in order.items:
-        if item.type == 'payment':
-            net += item.amount
-        elif item.type == 'product':
-            net -= item.amount * item.quantity
+        number_of_amount_zero = ""
+        item_amount_list = []
+        if value in sorted(str(item.amount)):
+            for i in str(item.amount):
+                item_amount_list.append(i)
+            x = int(item_amount_list.index(value)) + int(1)
+            y = int(item_amount_list.index(value)) + int(2)
+            number_of_amount_zero = int(str(item_amount_list[x]) + str(item_amount_list[y]))
+            j = 1
+            real_amount = "1"
+            while j <= float(int(number_of_amount_zero)):
+                real_amount += "0"
+                j = j + 1
+            if item.type == 'payment':
+                if "-" in item_amount_list:
+                    net -= float(real_amount)
+                else:
+                    net += float(real_amount)
+            elif item.type == 'product':
+                net -= float(real_amount * item.quantity)
+        elif value not in sorted(str(item.amount)):
+            if item.type == 'payment':
+                net += int(item.amount)
+            elif item.type == 'product':
+                net -= int(item.amount * item.quantity)
         else:
             return("Invalid item type: %s" % item.type)
     
